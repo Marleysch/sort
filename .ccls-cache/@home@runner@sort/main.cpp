@@ -26,13 +26,29 @@ void bubble(int A[], int size){
   }
 }
 
-int read_and_write_nums(){
-  int test[] = {1,2,3,5,4};
-  bubble(test, 5);
-  for (int i=0;i<5;i++)
-    cout << test[i] << endl;
+void read_and_write_nums(){
+  ifstream numberfile;
+  numberfile.open("numbers.dat");
+  int num;
+  int numofnums = 0;
+  while (numberfile >> num){
+    numofnums += 1;
+  }
+  numberfile.close();
+  numberfile.open("numbers.dat");
+  int A[numofnums];
+  int endofarray = 0;
+  while (numberfile >> num){
+    A[endofarray] = num;
+    endofarray += 1;
+  }
+  bubble(A, numofnums);
+  ofstream output("mysort.out");
+  for (int i = 0; i < numofnums; i++){
+    output << A[i] << endl;
+  }
 }
 
 int main(){
-  
+ read_and_write_nums(); 
 }
